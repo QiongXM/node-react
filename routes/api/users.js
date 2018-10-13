@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../../models/User');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // Get users
 router.get('/test', (req, res) => res.json({ add: 'users' }));
@@ -36,6 +37,28 @@ router.post('/register', (req, res) => {
         });
       });
     }
+  });
+});
+
+// Login user
+router.post('/login', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  User.findOne({ email }).then(user => {
+    if (!user) {
+      return res.status(404).json({ email: 'User not found!' });
+    }
+
+    bcrypt.compare(password, user.password, (err, isMatch) => {
+      if (err) throw err;
+
+      if (isMatch) {
+        res.json({ msg: 'Success!' });
+      } else {
+        return res.status(400).json({ password: 'Incorrect credentials' });
+      }
+    });
   });
 });
 
