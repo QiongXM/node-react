@@ -10,8 +10,8 @@ module.exports = function validateProfileInput(data) {
   data.skills = !isEmpty(data.skills) ? data.skills : '';
 
   // Check for length of handle
-  if (!validator.isLength(data.handle, { min: 2, max: 4 })) {
-    errors.handle = 'Handle needs to be 2 to 4 characters';
+  if (!validator.isLength(data.handle, { min: 2, max: 30 })) {
+    errors.handle = 'Handle needs to be 2 to 30 characters';
   }
 
   // Check for empty handle
