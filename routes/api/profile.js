@@ -202,4 +202,62 @@ router.post(
   }
 );
 
+// Delete experience from profile route
+router.delete(
+  '/experience/:exp_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const errors = {};
+
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        // Get the index of removing experience
+        const removeIndex = profile.experience
+          .map(item => item.id)
+          .indexOf(req.params.exp_id);
+
+        // Check if the experience is exist
+        if (removeIndex == -1) {
+          errors.noedutodelete = 'There is no experience to delete';
+          res.status(404).json(errors);
+        } else {
+          // Remove the experience
+          profile.experience.splice(removeIndex, 1);
+          // Save profile
+          profile.save().then(profile => res.json(profile));
+        }
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
+// Delete education from profile route
+router.delete(
+  '/education/:edu_id',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    const errors = {};
+
+    Profile.findOne({ user: req.user.id })
+      .then(profile => {
+        // Get the index of removing education
+        const removeIndex = profile.education
+          .map(item => item.id)
+          .indexOf(req.params.edu_id);
+
+        // Check if the education is exist
+        if (removeIndex == -1) {
+          errors.noedutodelete = 'There is no education to delete';
+          res.status(404).json(errors);
+        } else {
+          // Remove the education
+          profile.education.splice(removeIndex, 1);
+          // Save profile
+          profile.save().then(profile => res.json(profile));
+        }
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
 module.exports = router;
