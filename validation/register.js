@@ -8,8 +8,8 @@ module.exports = function validateRegisterInput(data) {
   data.name = !isEmpty(data.name) ? data.name : '';
   data.email = !isEmpty(data.email) ? data.email : '';
   data.password = !isEmpty(data.password) ? data.password : '';
-  data.confirmPassword = !isEmpty(data.confirmPassword)
-    ? data.confirmPassword
+  data.confirmpassword = !isEmpty(data.confirmpassword)
+    ? data.confirmpassword
     : '';
 
   // Check for length of name
@@ -42,14 +42,14 @@ module.exports = function validateRegisterInput(data) {
     errors.password = 'Password is required!';
   }
 
-  // Check if password matches confirm password
-  if (!validator.equals(data.password, data.confirmPassword)) {
-    errors.confirmPassword = 'Passwords must match!';
+  // Check for empty confirm password
+  if (validator.isEmpty(data.confirmpassword)) {
+    errors.password2 = 'Confirm Password field is required';
   }
 
-  // Check for empty confirm password
-  if (validator.isEmpty(data.confirmPassword)) {
-    errors.confirmPassword = 'Confirm Password is required!';
+  // Check if password matches confirm password
+  if (!validator.equals(data.password, data.confirmpassword)) {
+    errors.confirmPassword = 'Passwords must match!';
   }
 
   return {
