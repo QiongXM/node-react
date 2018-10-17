@@ -28,7 +28,7 @@ class Register extends Component {
   };
 
   render() {
-    const { errors } = this.state;
+    const { name, email, password, confirmpassword, errors } = this.state;
 
     return (
       <div className="register">
@@ -45,7 +45,7 @@ class Register extends Component {
                     type="text"
                     placeholder="Name"
                     name="name"
-                    value={this.state.name}
+                    value={name}
                     onChange={this.onChange}
                   />
                   {errors.name && (
@@ -60,7 +60,7 @@ class Register extends Component {
                     type="email"
                     placeholder="Email Address"
                     name="email"
-                    value={this.state.email}
+                    value={email}
                     onChange={this.onChange}
                   />
                   {errors.name && (
@@ -79,7 +79,7 @@ class Register extends Component {
                     type="password"
                     placeholder="Password"
                     name="password"
-                    value={this.state.password}
+                    value={password}
                     onChange={this.onChange}
                   />
                   {errors.password && (
@@ -94,7 +94,7 @@ class Register extends Component {
                     type="password"
                     placeholder="Confirm Password"
                     name="confirmpassword"
-                    value={this.state.confirmpassword}
+                    value={confirmpassword}
                     onChange={this.onChange}
                   />
                   {errors.confirmpassword && (
