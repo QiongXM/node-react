@@ -44,12 +44,12 @@ module.exports = function validateRegisterInput(data) {
 
   // Check for empty confirm password
   if (validator.isEmpty(data.confirmpassword)) {
-    errors.password2 = 'Confirm Password field is required';
+    errors.confirmpassword = 'Confirm Password field is required';
   }
 
   // Check if password matches confirm password
   if (!validator.equals(data.password, data.confirmpassword)) {
-    errors.confirmPassword = 'Passwords must match!';
+    errors.confirmpassword = 'Passwords must match!';
   }
 
   return {
