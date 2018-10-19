@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import axios from 'axios';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { loginUser } from '../../actions/authActions';
 
 class Login extends Component {
   state = {
@@ -8,6 +10,16 @@ class Login extends Component {
     password: '',
     errors: {}
   };
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.auth.isAuthenticated) {
+      props.history.push('/dashboard');
+    }
+    if (props.errors) {
+      return { errors: props.errors };
+    }
+    return null;
+  }
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -19,10 +31,7 @@ class Login extends Component {
       password: this.state.password
     };
 
-    axios
-      .post('/api/users/login', currentUser)
-      .then(res => console.log(res.data))
-      .catch(err => this.setState({ errors: err.response.data }));
+    this.props.loginUser(currentUser);
   };
 
   render() {
@@ -75,4 +84,18 @@ class Login extends Component {
   }
 }
 
-export default Login;
+Login.propTypes = {
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired,
+  loginUser: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Login);
