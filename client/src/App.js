@@ -15,6 +15,7 @@ import Login from './components/auth/Login';
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { logoutUser } from './actions/logoutUser';
 
 // Check for token
 if (localStorage.jwtToken) {
@@ -24,6 +25,15 @@ if (localStorage.jwtToken) {
   const decoded = jwtDecode(localStorage.jwtToken);
   //Set current user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
+
+  // Check for expired token
+  const currentTime = Date.now() / 1000;
+  if (decoded.exp < currentTime) {
+    // Logout user if token has expired
+    store.dispatch(logoutUser());
+    // Redirect to login
+    window.location.href = 'login';
+  }
 }
 
 class App extends Component {
