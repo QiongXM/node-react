@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { GET_ERRORS } from './types';
+import { GET_REGISTER_ERRORS } from './types';
+import { GET_LOGIN_ERRORS } from './types';
 import setAuthToken from '../utils/setAuthToken';
 import jwtDecode from 'jwt-decode';
 import setCurrentUser from './setCurrentUser';
@@ -11,7 +12,7 @@ export const registerUser = (userdata, history) => dispatch => {
     .then(res => history.push('/login'))
     .catch(err =>
       dispatch({
-        type: GET_ERRORS,
+        type: GET_REGISTER_ERRORS,
         payload: err.response.data
       })
     );
@@ -38,7 +39,7 @@ export const loginUser = userdata => dispatch => {
     })
     .catch(err =>
       dispatch({
-        type: GET_ERRORS,
+        type: GET_LOGIN_ERRORS,
         payload: err.response.data
       })
     );
