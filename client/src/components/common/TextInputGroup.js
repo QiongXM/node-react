@@ -10,25 +10,50 @@ const TextInputGroup = ({
   onChange,
   error,
   info,
-  disabled
+  disabled,
+  icon
 }) => {
-  return (
-    <div className="form-group">
-      <input
-        type={type}
-        className={classnames('form-control form-control-lg', {
-          'is-invalid': error
-        })}
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-      />
-      {info && <small className="form-text text-muted">{info}</small>}
-      {error && <div className="invalid-feedback">{error}</div>}
-    </div>
-  );
+  if (icon) {
+    return (
+      <div className="input-group mb-3">
+        <div className="input-group-prepend">
+          <span className="input-group-text">
+            <i className={icon} />
+          </span>
+        </div>
+        <input
+          type={type}
+          className={classnames('form-control form-control-lg', {
+            'is-invalid': error
+          })}
+          placeholder={placeholder}
+          name={name}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+        />
+        {error && <div className="invalid-feedback">{error}</div>}
+      </div>
+    );
+  } else {
+    return (
+      <div className="form-group">
+        <input
+          type={type}
+          className={classnames('form-control form-control-lg', {
+            'is-invalid': error
+          })}
+          placeholder={placeholder}
+          name={name}
+          value={value}
+          onChange={onChange}
+          disabled={disabled}
+        />
+        {info && <small className="form-text text-muted">{info}</small>}
+        {error && <div className="invalid-feedback">{error}</div>}
+      </div>
+    );
+  }
 };
 
 TextInputGroup.propTypes = {
@@ -39,7 +64,8 @@ TextInputGroup.propTypes = {
   onChange: PropTypes.func.isRequired,
   error: PropTypes.string,
   info: PropTypes.string,
-  disabled: PropTypes.string
+  disabled: PropTypes.string,
+  icon: PropTypes.string
 };
 
 TextInputGroup.defaultProps = {
