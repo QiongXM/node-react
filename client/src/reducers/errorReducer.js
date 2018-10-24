@@ -1,6 +1,6 @@
 import { GET_REGISTER_ERRORS } from '../actions/types.js';
 import { GET_LOGIN_ERRORS } from '../actions/types.js';
-import { CREATE_PROFILE_ERRORS } from '../actions/types.js';
+import { GET_PROFILE_ERRORS } from '../actions/types.js';
 
 const initialState = {
   registerErrors: {},
@@ -20,7 +20,7 @@ export default function(state = initialState, action) {
         ...state,
         loginErrors: action.payload
       };
-    case CREATE_PROFILE_ERRORS:
+    case GET_PROFILE_ERRORS:
       return {
         ...state,
         profileErrors: action.payload
