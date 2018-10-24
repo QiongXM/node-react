@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { registerUser } from '../../actions/authActions';
 import TextInputGroup from '../common/TextInputGroup';
+import clearErrors from '../../actions/clearErrors';
 
 class Register extends Component {
   state = {
@@ -37,6 +38,9 @@ class Register extends Component {
       confirmpassword: this.state.confirmpassword
     };
     this.props.registerUser(newUser, this.props.history);
+
+    // Reset errors to {}
+    this.props.clearErrors({});
   };
 
   render() {
@@ -94,7 +98,8 @@ class Register extends Component {
 Register.propTypes = {
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
-  registerUser: PropTypes.func.isRequired
+  registerUser: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -104,5 +109,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { registerUser }
+  { registerUser, clearErrors }
 )(withRouter(Register));

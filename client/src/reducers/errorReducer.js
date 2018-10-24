@@ -1,6 +1,7 @@
 import { GET_REGISTER_ERRORS } from '../actions/types.js';
 import { GET_LOGIN_ERRORS } from '../actions/types.js';
 import { GET_PROFILE_ERRORS } from '../actions/types.js';
+import { CLEAR_ERRORS } from '../actions/types.js';
 
 const initialState = {
   registerErrors: {},
@@ -23,6 +24,13 @@ export default function(state = initialState, action) {
     case GET_PROFILE_ERRORS:
       return {
         ...state,
+        profileErrors: action.payload
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        registerErrors: action.payload,
+        loginErrors: action.payload,
         profileErrors: action.payload
       };
     default:

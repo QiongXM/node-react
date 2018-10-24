@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { loginUser } from '../../actions/authActions';
 import TextInputGroup from '../common/TextInputGroup';
+import clearErrors from '../../actions/clearErrors';
 
 class Login extends Component {
   state = {
@@ -38,6 +39,9 @@ class Login extends Component {
     };
 
     this.props.loginUser(currentUser);
+
+    // Reset errors to {}
+    this.props.clearErrors({});
   };
 
   render() {
@@ -79,7 +83,8 @@ class Login extends Component {
 Login.propTypes = {
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
-  loginUser: PropTypes.func.isRequired
+  loginUser: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -89,5 +94,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { loginUser }
+  { loginUser, clearErrors }
 )(Login);
