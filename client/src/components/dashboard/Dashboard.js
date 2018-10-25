@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../actions/profileActions';
-import Spinner from '../common/Spinner';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { getCurrentProfile, deleteAccount } from '../../actions/profileActions';
+import Spinner from '../common/Spinner';
+import ProfileActions from './ProfileActions';
 
 class Dashboard extends Component {
   componentDidMount() {
     this.props.getCurrentProfile();
   }
+
+  onDeleteClick = e => {
+    this.props.deleteAccount();
+  };
+
   render() {
-    const user = this.props.auth;
+    const user = this.props.auth.user;
     const { profile, isLoading } = this.props.profile;
 
     let dashboardContent;
@@ -20,7 +26,20 @@ class Dashboard extends Component {
     } else {
       // Check if logged in user has profile
       if (Object.keys(profile).length > 0) {
-        dashboardContent = <h4>TODO: PROFILE</h4>;
+        dashboardContent = (
+          <div>
+            <p className="lead text-muted">
+              Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link>
+            </p>
+            <ProfileActions />
+
+            {/* Delete account */}
+            <div style={{ marginBottom: '30px' }} />
+            <button className="btn btn-danger" onClick={this.onDeleteClick}>
+              Delete my account
+            </button>
+          </div>
+        );
       }
       // Logged in user doesn't have a profile
       else {
@@ -53,6 +72,7 @@ class Dashboard extends Component {
 
 Dashboard.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
+  deleteAccount: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };
@@ -64,5 +84,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { getCurrentProfile }
+  { getCurrentProfile, deleteAccount }
 )(Dashboard);
