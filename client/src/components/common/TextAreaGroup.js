@@ -22,7 +22,7 @@ const TextAreaGroup = ({ name, placeholder, value, onChange, error, info }) => {
 
 TextAreaGroup.propTypes = {
   name: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   error: PropTypes.string,
