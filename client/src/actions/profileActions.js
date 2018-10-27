@@ -4,6 +4,7 @@ import {
   PROFILE_LOADING,
   CLEAR_CURRENT_PROFILE,
   GET_PROFILE_ERRORS,
+  GET_EXP_ERRORS,
   SET_CURRENT_USER
 } from './types';
 
@@ -62,4 +63,17 @@ export const deleteAccount = () => dispatch => {
         })
       );
   }
+};
+
+//Add experience
+export const addExperience = (expData, history) => dispatch => {
+  axios
+    .post('/api/profile/experience', expData)
+    .then(res => history.push('/dashboard'))
+    .catch(err =>
+      dispatch({
+        type: GET_EXP_ERRORS,
+        payload: err.response.data
+      })
+    );
 };

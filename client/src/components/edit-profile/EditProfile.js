@@ -10,6 +10,7 @@ import {
   createUserProfile,
   getCurrentProfile
 } from '../../actions/profileActions';
+import clearErrors from '../../actions/clearErrors';
 
 import isEmpty from '../../validation/is-empty';
 
@@ -114,6 +115,9 @@ class CreateProfile extends Component {
     };
 
     this.props.createUserProfile(userProfileData, this.props.history);
+
+    // Reset errors to {}
+    this.props.clearErrors({});
   };
 
   render() {
@@ -291,7 +295,8 @@ CreateProfile.propTypes = {
   profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired,
   createUserProfile: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -301,5 +306,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createUserProfile, getCurrentProfile }
+  { createUserProfile, getCurrentProfile, clearErrors }
 )(withRouter(CreateProfile));
