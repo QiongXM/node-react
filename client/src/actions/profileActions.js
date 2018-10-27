@@ -5,6 +5,7 @@ import {
   CLEAR_CURRENT_PROFILE,
   GET_PROFILE_ERRORS,
   GET_EXP_ERRORS,
+  GET_EDU_ERRORS,
   SET_CURRENT_USER
 } from './types';
 
@@ -73,6 +74,19 @@ export const addExperience = (expData, history) => dispatch => {
     .catch(err =>
       dispatch({
         type: GET_EXP_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+//Add education
+export const addEducation = (eduData, history) => dispatch => {
+  axios
+    .post('/api/profile/education', eduData)
+    .then(res => history.push('/dashboard'))
+    .catch(err =>
+      dispatch({
+        type: GET_EDU_ERRORS,
         payload: err.response.data
       })
     );
