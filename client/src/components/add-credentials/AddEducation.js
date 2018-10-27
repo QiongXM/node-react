@@ -33,7 +33,7 @@ class AddEducation extends Component {
       degree: this.state.degree,
       fieldofstudy: this.state.fieldofstudy,
       from: this.state.from,
-      to: this.state.to,
+      to: this.state.current ? '' : this.state.to,
       current: this.state.current,
       description: this.state.description
     };
