@@ -6,7 +6,8 @@ import {
   GET_PROFILE_ERRORS,
   GET_EXP_ERRORS,
   GET_EDU_ERRORS,
-  SET_CURRENT_USER
+  SET_CURRENT_USER,
+  GET_PROFILES
 } from './types';
 
 // Get current profile
@@ -124,6 +125,25 @@ export const deleteEducation = id => dispatch => {
       dispatch({
         type: GET_EDU_ERRORS,
         payload: err.response.data
+      })
+    );
+};
+
+// Get all profiles
+export const getProfiles = () => dispatch => {
+  dispatch({ type: PROFILE_LOADING });
+  axios
+    .get('/api/profile/all')
+    .then(res =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: res.data
+      })
+    )
+    .catch(err =>
+      dispatch({
+        type: GET_PROFILES,
+        payload: null
       })
     );
 };
