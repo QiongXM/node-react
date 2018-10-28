@@ -10,11 +10,18 @@ import Spinner from '../common/Spinner';
 import { getProfileByHandle } from '../../actions/profileActions';
 
 class Profile extends Component {
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps.profile.profile == null && this.props.profile.isLoading) {
+      this.props.history.push('/not-found');
+    }
+  }
+
   componentDidMount() {
     if (this.props.match.params.handle) {
       this.props.getProfileByHandle(this.props.match.params.handle);
     }
   }
+
   render() {
     const { profile, isLoading } = this.props.profile;
     let profileContent;

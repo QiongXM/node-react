@@ -11,11 +11,11 @@ class Profiles extends Component {
   }
 
   render() {
-    const { profiles, loading } = this.props.profile;
+    const { profiles, isLoading } = this.props.profile;
 
     let profileItems;
 
-    if (profiles === null || loading) {
+    if (profiles === null || isLoading) {
       profileItems = <Spinner />;
     } else {
       if (profiles.length > 0) {
