@@ -15,17 +15,24 @@ class ProfileGithub extends Component {
   componentDidMount() {
     const { username } = this.props;
     const { clientId, clientSecret, count, sort } = this.state;
+    this._isMounted = true;
 
     fetch(
       `https://api.github.com/users/${username}/repos?per_page=${count}&sort=${sort}&client_id=${clientId}&client_secret=${clientSecret}`
     )
       .then(res => res.json())
       .then(data => {
-        this.setState({
-          repos: data
-        });
+        if (this._isMounted) {
+          this.setState({
+            repos: data
+          });
+        }
       })
       .catch(err => console.log(err));
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
