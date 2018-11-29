@@ -117,7 +117,7 @@ class CreateProfile extends Component {
     this.props.createUserProfile(userProfileData, this.props.history);
 
     // Reset errors to {}
-    this.props.clearErrors({});
+    this.props.clearErrors();
   };
 
   render() {

@@ -1,8 +1,8 @@
 import { CLEAR_ERRORS } from './types.js';
 
-const clearErrors = errors => ({
+const clearErrors = () => ({
   type: CLEAR_ERRORS,
-  payload: errors
+  payload: {}
 });
 
 export default clearErrors;

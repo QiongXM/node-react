@@ -40,7 +40,7 @@ class Register extends Component {
     this.props.registerUser(newUser, this.props.history);
 
     // Reset errors to {}
-    this.props.clearErrors({});
+    this.props.clearErrors();
   };
 
   render() {

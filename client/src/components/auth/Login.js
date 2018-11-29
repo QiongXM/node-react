@@ -41,7 +41,7 @@ class Login extends Component {
     this.props.loginUser(currentUser);
 
     // Reset errors to {}
-    this.props.clearErrors({});
+    this.props.clearErrors();
   };
 
   render() {

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextAreaGroup from '../common/TextAreaGroup';
 import { addPost } from '../../actions/postActions';
+import clearErrors from '../../actions/clearErrors';
 
 class PostForm extends Component {
   state = {
@@ -36,6 +37,7 @@ class PostForm extends Component {
 
     this.props.addPost(newPost);
     this.setState({ text: '' });
+    this.props.clearErrors();
   };
   render() {
     const { errors } = this.state;
@@ -65,6 +67,7 @@ class PostForm extends Component {
 
 PostForm.propTypes = {
   addPost: PropTypes.func.isRequired,
+  clearErrors: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
@@ -76,5 +79,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { addPost }
+  { addPost, clearErrors }
 )(PostForm);
