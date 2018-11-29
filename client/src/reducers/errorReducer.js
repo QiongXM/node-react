@@ -3,6 +3,7 @@ import { GET_LOGIN_ERRORS } from '../actions/types.js';
 import { GET_PROFILE_ERRORS } from '../actions/types.js';
 import { GET_EXP_ERRORS } from '../actions/types.js';
 import { GET_EDU_ERRORS } from '../actions/types.js';
+import { GET_POST_ERRORS } from '../actions/types.js';
 import { CLEAR_ERRORS } from '../actions/types.js';
 
 const initialState = {
@@ -10,7 +11,8 @@ const initialState = {
   loginErrors: {},
   profileErrors: {},
   expErrors: {},
-  eduErrors: {}
+  eduErrors: {},
+  postErrors: {}
 };
 
 export default function(state = initialState, action) {
@@ -40,6 +42,11 @@ export default function(state = initialState, action) {
         ...state,
         eduErrors: action.payload
       };
+    case GET_POST_ERRORS:
+      return {
+        ...state,
+        postErrors: action.payload
+      };
 
     case CLEAR_ERRORS:
       return {
@@ -48,7 +55,8 @@ export default function(state = initialState, action) {
         loginErrors: action.payload,
         profileErrors: action.payload,
         expErrors: action.payload,
-        eduErrors: action.payload
+        eduErrors: action.payload,
+        postErrors: action.payload
       };
     default:
       return state;
